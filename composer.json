@@ -1,0 +1,38 @@
+{
+  "name": "webparking/laravel-clio",
+  "description": "Laravel API helper for Clio",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Remko Brenters",
+      "email": "remko.brenters@webparking.nl"
+    }
+  ],
+  "require": {
+    "php": "^7.4",
+    "laravel/framework": "^5.5||^6||^7",
+    "league/oauth2-client": "^2.4",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "phpstan/phpstan": "^0.12.18"
+  },
+  "autoload": {
+    "psr-4": {
+      "Webparking\\LaravelClio\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Webparking\\LaravelClio\\Providers\\LaravelClioServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "php-cs-fixer": "vendor/bin/php-cs-fixer fix --config=.php_cs",
+    "test": "composer php-cs-fixer && ./vendor/bin/phpstan analyse src config --level max"
+  },
+  "prefer-stable": true
+}
