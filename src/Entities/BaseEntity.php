@@ -60,12 +60,34 @@ abstract class BaseEntity
         return collect($json);
     }
 
+    /** @param array<string, mixed> $data */
+    protected function basePost(array $data): ?stdClass
+    {
+        $request = $this->apiClient->getProvider()->getAuthenticatedRequest(
+            'POST',
+            $this->buildUri([]),
+            $this->apiClient->getToken(),
+            [
+                'headers' => ['content-type' => 'application/json'],
+                'body' => json_encode(['data' => $data]),
+            ]
+        );
+
+        $json = json_decode($this->apiClient->getProvider()->getResponse($request)->getBody()->getContents());
+
+        if (isset($json->data)) {
+            return (object) $json->data;
+        }
+
+        return null;
+    }
+
     /** @param array<string, string> $data */
     protected function basePatch(array $data): ?stdClass
     {
         $request = $this->apiClient->getProvider()->getAuthenticatedRequest(
             'PATCH',
-            $this->buildUri([], ['id', 'state', 'number', 'memo', 'subject']),
+            $this->buildUri([]),
             $this->apiClient->getToken(),
             [
                 'headers' => ['content-type' => 'application/json'],
